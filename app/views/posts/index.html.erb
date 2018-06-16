@@ -1,0 +1,38 @@
+<div class="main posts-index">
+  <div class="container">
+    <h1 class="form-heading">投稿一覧</h1>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <% @posts.each do |post| %>
+    <div class="posts-index-item">
+      <div class="post-content">
+      <p>
+        <%= link_to(post.content,"/posts/#{post.id}") %>
+      </p>
+    </div>
+      <div class="post-time">
+        <%= post.user.username %>
+        <%= post.created_at %>
+      </div>
+      <div class="post-menus">
+          <%= link_to 'Show', post %>
+          <% if current_user.id == post.user.id %>
+            <%= link_to 'Edit', edit_post_path(post) %>
+            <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+      </div>
+    </div>
+
+    <% end %>
+    <h1 class="form-footer"><%= link_to '投稿する', new_post_path %></h1>
+
+  </div>
+</div>

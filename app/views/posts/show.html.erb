@@ -1,0 +1,31 @@
+<div class="main posts-show">
+  <div class="container">
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <div class="posts-show-item">
+      <p>
+        <%= image_tag(@post.user.avatar) %>
+        <%= @post.content %>
+      </p>
+      <div class="post-time">
+        <strong><%= @post.user.username %></strong>
+        <%= @post.created_at %>
+      </div>
+      <div class="post-menus">
+        <% if current_user.id == @post.user.id %>
+          <%= link_to '編集', edit_post_path(@post) %>
+          <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        <%= link_to '戻る', posts_path %>
+      </div>
+    </div>
+  </div>
+</div>
